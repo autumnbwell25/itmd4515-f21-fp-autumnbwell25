@@ -1,4 +1,4 @@
-package edu.itmd4515.abardwell.abardwellfp;
+package edu.itmd4515.abardwell;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
