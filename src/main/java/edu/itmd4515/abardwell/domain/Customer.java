@@ -45,7 +45,7 @@ public class Customer {
         return id;
     }
 
-    public void setId(Integer id) {
+    public static void setId(Integer id) {
         this.id = id;
     }
 

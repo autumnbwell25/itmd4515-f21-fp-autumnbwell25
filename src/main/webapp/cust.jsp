@@ -5,7 +5,7 @@
     <title>Create a New Customer</title>
 </head>
 <body>
-<form>
+<form action="/abardwell-fp/cust" method="post">
     <div>
         <label for="custId">Customer ID</label>
         <input id="custId" name="custId" type="text" />
@@ -13,12 +13,12 @@
 
     <div>
         <label for="fName">First Name</label>
-        <input id="fName" name="fName" type="text" />
+        <input id="fName" name="firstName" type="text" />
     </div>
 
     <div>
-        <label for="lName">Customer ID</label>
-        <input id="lName" name="lName" type="text" />
+        <label for="lName">Last Name</label>
+        <input id="lName" name="lastName" type="text" />
     </div>
 
     <div>
