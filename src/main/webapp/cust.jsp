@@ -6,7 +6,7 @@
 </head>
 <body>
 <c:if test="${not empty requestScope.violations}">
-    <p>Here were the issues with your data input.  We care about data integrity.  You must fix them.  This is the way.</p>
+    <p>Below are the issues with your data input.  We care about data integrity and  You must fix them in order to proceed.  This is the way.</p>
     <ol>
         <c:forEach var="violation" items="${requestScope.violations}">
             <li>There is a problem with ${violation.propertyPath}.  The error message is: ${violation.message}</li>
