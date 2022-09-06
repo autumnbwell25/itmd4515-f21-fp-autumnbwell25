@@ -10,7 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
         className = "com.mysql.cj.jdbc.MysqlDataSource",
         serverName = "localhost",
         portNumber = 3306,
-        databaseName = "Chinook",
+        databaseName = "sakila",
         user = "itmd4515",
         password = "itmd4515",
         properties = {
