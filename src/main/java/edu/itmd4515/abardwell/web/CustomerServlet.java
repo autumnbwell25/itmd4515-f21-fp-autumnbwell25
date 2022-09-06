@@ -1,6 +1,5 @@
 package edu.itmd4515.abardwell.web;
 
-import com.sun.jdi.IntegerValue;
 import edu.itmd4515.abardwell.domain.Customer;
 
 import javax.annotation.Resource;
@@ -43,13 +42,12 @@ public class CustomerServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private String CheckStringParam(String param){
-        if(param != null && !param.isEmpty()) {
+    private String checkStringParam(String param) {
+        if (param != null && !param.isEmpty()) {
             return param;
         }
 
         return null;
-
     }
 
     private void createACustomer(Customer customer) throws SQLException {
@@ -76,6 +74,7 @@ public class CustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         LOG.info("doPost request received");
+        
             String custIdParam = request.getParameter("custId");
             String custFirstNameParam = request.getParameter("firstName");
             String custLastNameParam = request.getParameter("lastName");
@@ -91,6 +90,7 @@ public class CustomerServlet extends HttpServlet {
             }
 
             customer.setFirstName(checkStringParam(custFirstNameParam));
+
             customer.setLastName(checkStringParam(custLastNameParam));
             customer.setEmail(checkStringParam(custEmailParam));
 
