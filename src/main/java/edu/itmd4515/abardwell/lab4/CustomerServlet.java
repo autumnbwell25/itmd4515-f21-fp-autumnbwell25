@@ -1,6 +1,4 @@
-package edu.itmd4515.abardwell.web;
-
-import edu.itmd4515.abardwell.domain.Customer;
+package edu.itmd4515.abardwell.lab4;
 
 import javax.annotation.Resource;
 import javax.servlet.*;

@@ -1,4 +1,4 @@
-package edu.itmd4515.abardwell.domain;
+package edu.itmd4515.abardwell.lab4;
 
 import javax.validation.constraints.*;
 

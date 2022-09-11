@@ -1,0 +1,17 @@
+Autumn Bardwell
+Lab 5
+
+a. The entity that I chose is an inventory management system for Dresses. I think the best way to go about this is to have
+dress types, and names associated with each dress. Next, I think it will be important to include sizes for the dress, quantity of
+dresses on hand, and maybe the cost of the dress. More to come on this as I think things through in the next few days.
+Alternatively, I can create an employee database with basic information such as name, birthdate, position, employee type, salary.
+
+For the sake of completing lab 5, I went through the class demonstration with just including dress types and name. In this example
+name just refers to the name of the dress, or maybe even the "owner" of the dress. I'll have this better defined for next labs so that
+I can limit the amount of rework needed on the final project. There are some things that will need to be updated, primarily around using DOB as it is not applicable.
+
+b. An entity is defined as an object with an independent existence that can be differentiated from other objects.
+It can be an object with a physical existence, such as a student or a car, or it can be an object with a conceptual existence,
+such as a course, or a position. An entity is considered weak if its tables are existence dependent. Other entities could be
+dress size, dress name, dress cost, dress fabric and dress color.
+
