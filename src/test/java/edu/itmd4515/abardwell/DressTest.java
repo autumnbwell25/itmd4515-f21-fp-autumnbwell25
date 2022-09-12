@@ -135,7 +135,7 @@ public class DressTest {
         // ideally this should clean up anything we created in beforeEach
         // select p from Dress p where p.name = TESTCASE
         Dress p = em.createQuery("select p from Dress p where p.name = 'TESTCASE'", Dress.class).getSingleResult();
-        Dress p = em.createNamedQuery("Dress.findByName",Dress.class)
+        Dress  p = em.createNamedQuery("Dress.findByName",Dress.class)
                 .setParameter("Name","TESTCASE")
                 .getSingleResult();
 
