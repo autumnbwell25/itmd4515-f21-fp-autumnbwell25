@@ -1,8 +1,9 @@
 package edu.itmd4515.abardwell.domain;
 
 import javax.persistence.*;
-import javax.persistence.Table;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Stylist")

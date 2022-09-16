@@ -2,11 +2,14 @@ package edu.itmd4515.abardwell.domain;
 
 
 import javax.persistence.*;
-import javax.persistence.Table;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 
 @Entity
-@Table(name = "Owner")
+@Table(name = "owner")
+
 public class Owner {
 
     // not a natural ID since a natural ID does not exist for this entity
