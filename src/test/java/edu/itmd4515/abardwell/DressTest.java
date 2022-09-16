@@ -134,9 +134,9 @@ public class DressTest {
     public void afterEach() {
         // ideally this should clean up anything we created in beforeEach
         // select p from Dress p where p.name = TESTCASE
-        Dress p = em.createQuery("select p from Dress p where p.name = 'TESTCASE'", Dress.class).getSingleResult();
-        Dress  p = em.createNamedQuery("Dress.findByName",Dress.class)
-                .setParameter("Name","TESTCASE")
+        //Dress p = em.createQuery("select p from Dress p where p.name = 'TESTCASE'", Dress.class).getSingleResult();
+        Dress p = em.createNamedQuery("Dress.findByName",Dress.class)
+                .setParameter("NAME","TESTCASE")
                 .getSingleResult();
 
         LOG.info(p.toString());

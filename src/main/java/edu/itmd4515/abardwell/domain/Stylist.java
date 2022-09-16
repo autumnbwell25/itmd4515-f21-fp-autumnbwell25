@@ -13,7 +13,13 @@ public class Stylist {
     @GeneratedValue(strategy = GenerationType.SEQUENCE )
     private Long id;
 
+    private String name;
+
     public Stylist() {
+    }
+
+    public Stylist(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -24,6 +30,13 @@ public class Stylist {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {

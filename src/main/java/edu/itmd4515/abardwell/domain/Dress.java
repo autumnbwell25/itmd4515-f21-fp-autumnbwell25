@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "dress")
-@NamedQuery(name = "Dress.findByName", query = "select p from Dress p where p.name = :NAME")
+@NamedQuery(name = "Dress.findByName", query = "select p from Dress p where p.name = :NAME") //named parameter
 public class Dress {
 
     // not a natural ID since a natural ID does not exist for this entity
