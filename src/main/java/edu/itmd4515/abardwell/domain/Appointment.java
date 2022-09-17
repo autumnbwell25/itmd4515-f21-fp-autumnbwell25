@@ -1,5 +1,5 @@
 package edu.itmd4515.abardwell.domain;
-
+//folowed in class demonostration
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,16 +9,41 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "appt")
+@Table(name = "Reservation")
 public class Appointment {
 
     // not a natural ID since a natural ID does not exist for this entity
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appt_id")
     private Long id;
 
+    @Column(name ="appt_date")
     private LocalDate date;
+    @Column(name = "time")
     private LocalTime time;
+    /*
+    Relationships:
+    1. Reservation appt is created by a Client
+    2. For a Dress
+    3. With a Stylist/Consultant
+     */
+
+    //bidirectional onetomany, manytoone between reservation(client) and owner inverse
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Owner owner;
+
+    //appt may include client, stylist, and dress. singular relationship
+    //unidirectional, manytoone relationship many appts can be to one dress
+    @ManyToOne
+    @JoinColumn(name = "dress_id")
+    private Dress dress;
+
+    //bidirectional onetomany, manytoone between reservation(stylist) and stylist inverse
+    @ManyToOne
+    @JoinColumn(name = "stylist_id")
+    private Stylist stylist;
 
 
     public Appointment() {
@@ -27,6 +52,30 @@ public class Appointment {
     public Appointment(LocalDate date, LocalTime time) {
         this.date = date;
         this.time = time;
+    }
+
+    public Stylist getStylist() {
+        return stylist;
+    }
+
+    public void setStylist(Stylist stylist) {
+        this.stylist = stylist;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public Dress getDress() {
+        return dress;
+    }
+
+    public void setDress(Dress dress) {
+        this.dress = dress;
     }
 
     public Long getId() {
@@ -61,6 +110,16 @@ public class Appointment {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", date=" + date +
+                ", time=" + time +
+                '}';
     }
 }

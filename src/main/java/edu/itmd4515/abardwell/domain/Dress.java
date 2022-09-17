@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,7 +18,7 @@ public class Dress {
 
     // not a natural ID since a natural ID does not exist for this entity
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -32,15 +34,27 @@ public class Dress {
     @Enumerated(EnumType.STRING)
     private DressType type;
 
+    // inverse side that does not own relationship gets mappedby
+    @ManyToMany(mappedBy = "dresses")
+    private List<Owner> owners = new ArrayList<>();
+
+
 
     public Dress() {
     }
 
-    //Will need to change birthdate to Event date or wedding date
     public Dress(String name, LocalDate birthDate, DressType type) {
         this.name = name;
         this.birthDate = birthDate;
         this.type = type;
+    }
+
+    public List<Owner> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<Owner> owners) {
+        this.owners = owners;
     }
 
     public Long getId() {

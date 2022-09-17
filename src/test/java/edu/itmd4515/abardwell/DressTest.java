@@ -2,6 +2,7 @@ package edu.itmd4515.abardwell;
 
 import edu.itmd4515.abardwell.domain.Dress;
 import edu.itmd4515.abardwell.domain.DressType;
+import edu.itmd4515.abardwell.domain.Owner;
 import org.eclipse.persistence.platform.server.was.WebSphere_Liberty_Platform;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.junit.jupiter.api.*;
@@ -27,6 +28,7 @@ public class DressTest {
     //fires once at the class level before each test case
     @BeforeAll
     public static void beforeAll() {
+
         emf = Persistence.createEntityManagerFactory("itmd4515testPU");
     }
 
@@ -37,7 +39,8 @@ public class DressTest {
         tx = em.getTransaction();
 
         // be sure to clean up what we create in beforeeach and aftereach
-        Dress p = new Dress("TESTCASE", LocalDate.of(2022, 6,13), DressType.Bouffont);
+        Dress p = new Dress("TESTCASE", LocalDate.of(1990, 12, 20), DressType.Slip);
+
         tx.begin();
         em.persist(p);
         tx.commit();
@@ -74,17 +77,9 @@ public class DressTest {
         LOG.info("readDressTest ============================================>" );
 
         // per in class demo, we already have a test entity from beforeEach, find it and read it back from the database
-        Dress findNewDress = em.createQuery("select p from Dress p where p.name = 'Leo'", Dress.class).getSingleResult();
-        LOG.info(findNewDress.toString());
-
         // and lastly we will just assert you were successful and delete
-        assertNotNull(findNewDress);
-        assertTrue(findNewDress.getId() > 0);
         // delete
-        tx.begin();
-        em.remove(findNewDress);
-        tx.commit();
-}
+    }
     @Test
     public void updateDressTest() throws SQLException {
         LOG.info("updateDressTest ============================================>" );
@@ -95,39 +90,60 @@ public class DressTest {
         // now we can update it
         tx.begin();
         // we should not change TestCase name because then we can't find it
-        p.setType(DressType.Babydoll);
+        p.setType(DressType.Slip);
         p.setBirthDate(LocalDate.of(2022, 10, 13));
         tx.commit();
         // then read it back from the database
         Dress findNewDress = em.createQuery("select p from Dress p where p.name = 'TESTCASE'", Dress.class).getSingleResult();
 
         // lastly assert that the  updates were successful
-        assertEquals(DressType.Babydoll,findNewDress.getType());
+        assertEquals(DressType.Slip,findNewDress.getType());
 
     }
     @Test
     public void deleteDressTest(){
         LOG.info("deleteDressTest ============================================>" );
 
-        // followed in class demo
-        // create a new customer delete the customer
-        Dress createNewDress = new Dress ("Alex", LocalDate.of(2021,11,25), DressType.Sun);
-        tx.begin();
-        em.persist(createNewDress);
-        tx.commit();
+        // create a new customer
+        // delete the customer
+        // try and find the customer you deleted
+    }
 
-        // try and find the customer that you deleted
-        Dress findNewDress = em.createQuery("select p from Dress p where p.name = 'Alex'", Dress.class).getSingleResult();
-        LOG.info(findNewDress.toString());
-        // assert that you could not find it (it was successfully deleted)
-        // and lastly we will just assert you were successful and delete
-        assertNotNull(findNewDress);
-        assertTrue(findNewDress.getId() > 0);
-        // delete
+    @Test
+    public void testManytoManyBiDirectionalOwnerDressRelationship() {
+        LOG.info("testManyToManyBiDirectionalOwnerPetRelationship ============================================>");
+
+        Owner o = new Owner("Professor Scott");
+        Dress p = new Dress("Leo Test", LocalDate.of(2022, 6, 15), DressType.Mermaid);
+
+        //example 1 - no developer effort to manage relationship, so does not exist. We should manage the relationship at the application layer without setting relationships,
+        //2 independent entities were persisted to the database, unrelated though.
+
+        // example 2 - we will explore setting the inverse of the relationship and explore what happens in the database and application.
+        // p.getOwners().add(o);
+
+        //example 3 - we explore setting the owning side of the relationship and only the owning side. We are not managing
+        //both side of the relationship in this example. Only the owning side. We can see that the nonowning side is empty and set
+        //because we did not manage both sides. We checked how it looked from owning side/non owning side with a check
+        //o.getDresses().add(p);
+
+        // example 3 and 4 cont
+        //owning side
+        System.out.println("From the owning side: " + o.getDresses().toString());
+        //non owning side next
+        System.out.println("From the non-oqning side: " + p.getOwners().toString());
+
+        assertTrue(o.getDresses().size() == 1);
+        assertTrue(p.getOwners().size() == 1);
+
         tx.begin();
-        em.remove(findNewDress);
+        // first step is removing the nonowning inverse entity, because we can't remove the owning entity when a relationship exists
+        o.removeDress(p);
+        em.remove(p);
+        em.remove(o);
         tx.commit();
     }
+
 
     // this fires once after each test method
     @AfterEach

@@ -1,6 +1,8 @@
 package edu.itmd4515.abardwell.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,16 +13,31 @@ public class Stylist {
 
     // not a natural ID since a natural ID does not exist for this entity
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "stylist_id")
     private Long id;
 
+    @Column(name = "stylist_name")
     private String name;
+
+    //mapped by the name of the field of the owning side of the relationship
+    @OneToMany(mappedBy = "stylist")
+    private List<Appointment> appts = new ArrayList<>();
 
     public Stylist() {
     }
 
     public Stylist(String name) {
+
         this.name = name;
+    }
+
+    public List<Appointment> getAppts() {
+        return appts;
+    }
+
+    public void setAppts(List<Appointment> appts) {
+        this.appts = appts;
     }
 
     public Long getId() {
@@ -55,6 +72,15 @@ public class Stylist {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Stylist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
