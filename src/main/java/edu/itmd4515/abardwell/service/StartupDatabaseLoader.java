@@ -44,10 +44,10 @@ public class StartupDatabaseLoader {
         stylistSvc.create(v1);
         stylistSvc.create(v2);
 
-        Dress p1 = new Dress("Alexis", LocalDate.of(2010, 9, 1), DressType.Bodycon);
-        Dress p2 = new Dress("Piper", LocalDate.of(2012, 6, 12), DressType.Wrap);
-        Dress p3 = new Dress("Gavin", LocalDate.of(2011, 8, 11), DressType.Ball);
-        Dress p4 = new Dress("Harlow", LocalDate.of(2014, 7, 10), DressType.Slip);
+        Dress p1 = new Dress("Alexis", LocalDate.of(2010, 9, 1), DressType.BODYCON);
+        Dress p2 = new Dress("Piper", LocalDate.of(2012, 6, 12), DressType.WRAP);
+        Dress p3 = new Dress("Gavin", LocalDate.of(2011, 8, 11), DressType.BALL);
+        Dress p4 = new Dress("Harlow", LocalDate.of(2014, 7, 10), DressType.SLIP);
         dressSvc.create(p1);
         dressSvc.create(p2);
         dressSvc.create(p3);

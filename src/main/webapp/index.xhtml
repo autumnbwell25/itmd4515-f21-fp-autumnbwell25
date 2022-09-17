@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: abardwe
+  Date: 9/17/2022
+  Time: 2:08 AM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+
+    <title>Welcome</title>
+</h:head>
+<h:body>
+    <h:outputText value="Watching the in class demonstration. Welcome to Lab 8."/>.
+
+    <h1>Create a New Dress and Make a Reservation</h1>
+
+    <h:form>
+        <p>
+            <h:panelGroup layout="block">
+                <h:outputLabel value="Name" for="name"/>
+                <h:inputText id="name" value="#{dressController.dress.name}"/>
+                <h:message for="name"/>
+            </h:panelGroup>
+        </p>
+        <p>
+            <h:panelGroup layout="block">
+                <h:outputLabel value="Birth Date" for="birthDate"/>
+                <h:inputText id="birthDate" p:type="date" value="#{dressController.dress.birthDate}">
+                    <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                </h:inputText>
+                <h:message for="birthDate"/>
+            </h:panelGroup>
+        </p>
+        <p>
+            <h:panelGroup layout="block">
+                <h:outputLabel value="Dress Type" for="dressType"/>
+
+                <h:selectOneMenu id="dressType" value="#{dressController.pet.type}">
+                    <f:selectItems value="#{dressController.alldressTypes}"
+                                   var="dressType"
+                                   itemLabel="#{dressType.label}"
+                                   itemValue="#{dressType}"/>
+                </h:selectOneMenu>
+
+                <h:message for="dressType"/>
+            </h:panelGroup>
+    </p>
+
+    <p><h:commandButton value="Save" action="#{dressController.saveTheDress()}"/></p>
+    </h:form>
+
+</h:body>
+
+</html>

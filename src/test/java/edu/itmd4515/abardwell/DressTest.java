@@ -39,7 +39,7 @@ public class DressTest {
         tx = em.getTransaction();
 
         // be sure to clean up what we create in beforeeach and aftereach
-        Dress p = new Dress("TESTCASE", LocalDate.of(1990, 12, 20), DressType.Slip);
+        Dress p = new Dress("TESTCASE", LocalDate.of(1990, 12, 20), DressType.SLIP);
 
         tx.begin();
         em.persist(p);
@@ -53,7 +53,7 @@ public class DressTest {
         LOG.info("createDressTest ============================================>");
 
         //first we create a new entity
-        Dress createNewDress = new Dress ("Leo", LocalDate.of(2022,6,15), DressType.Mermaid);
+        Dress createNewDress = new Dress ("Leo", LocalDate.of(2022,6,15), DressType.MERMAID);
         tx.begin();
         em.persist(createNewDress);
         tx.commit();
@@ -90,14 +90,14 @@ public class DressTest {
         // now we can update it
         tx.begin();
         // we should not change TestCase name because then we can't find it
-        p.setType(DressType.Slip);
+        p.setType(DressType.SLIP);
         p.setBirthDate(LocalDate.of(2022, 10, 13));
         tx.commit();
         // then read it back from the database
         Dress findNewDress = em.createQuery("select p from Dress p where p.name = 'TESTCASE'", Dress.class).getSingleResult();
 
         // lastly assert that the  updates were successful
-        assertEquals(DressType.Slip,findNewDress.getType());
+        assertEquals(DressType.SLIP,findNewDress.getType());
 
     }
     @Test
@@ -114,7 +114,7 @@ public class DressTest {
         LOG.info("testManyToManyBiDirectionalOwnerPetRelationship ============================================>");
 
         Owner o = new Owner("Prof Scott");
-        Dress p = new Dress("Leo Test", LocalDate.of(2022, 6, 15), DressType.Mermaid);
+        Dress p = new Dress("Leo Test", LocalDate.of(2022, 6, 15), DressType.MERMAID);
 
         //example 1 - no developer effort to manage relationship, so does not exist. We should manage the relationship at the application layer without setting relationships,
         //2 independent entities were persisted to the database, unrelated though.
