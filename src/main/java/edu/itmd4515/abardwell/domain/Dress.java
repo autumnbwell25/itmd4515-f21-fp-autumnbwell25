@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "dress")
+@AttributeOverride(name = "id", column = @Column(name = "dress_id"))
 @NamedQuery(name = "Dress.findByName", query = "select p from Dress p where p.name = :NAME") //named parameter
 public class Dress extends AbstractEntity{
 

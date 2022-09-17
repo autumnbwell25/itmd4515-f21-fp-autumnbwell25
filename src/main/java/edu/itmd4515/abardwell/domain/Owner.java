@@ -11,14 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
+@AttributeOverride(name = "id", column = @Column(name = "client_id"))
 
-public class Owner {
-
-    // not a natural ID since a natural ID does not exist for this entity
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
-    private Long id;
+public class Owner extends AbstractEntity{
 
     @Column(name = "client_name")
     private String name;
@@ -54,14 +49,6 @@ public class Owner {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -84,25 +71,6 @@ public class Owner {
 
     public void setDresses(List<Dress> dresses) {
         this.dresses = dresses;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        // we must check for the generatedID fields for nulls to satisfy JPA equals
-        if(( this.id == null) || ((Owner) o).id == null){
-            return false;
-        }
-
-        Owner owner = (Owner) o;
-        return id.equals(owner.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     @Override

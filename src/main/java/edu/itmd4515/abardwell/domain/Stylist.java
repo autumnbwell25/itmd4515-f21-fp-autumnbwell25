@@ -9,13 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Stylist")
-public class Stylist {
+@AttributeOverride(name = "id", column = @Column(name = "stylist_id"))
+public class Stylist extends AbstractEntity{
 
-    // not a natural ID since a natural ID does not exist for this entity
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stylist_id")
-    private Long id;
 
     @Column(name = "stylist_name")
     private String name;
@@ -26,6 +22,7 @@ public class Stylist {
 
     public Stylist() {
     }
+
 
     public Stylist(String name) {
 
@@ -40,14 +37,6 @@ public class Stylist {
         this.appts = appts;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -56,25 +45,6 @@ public class Stylist {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        // we must check for the generatedID fields for nulls to satisfy JPA equals
-        if(( this.id == null) || ((Stylist) o).id == null){
-            return false;
-        }
-
-        Stylist stylist = (Stylist) o;
-        return id.equals(stylist.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id);
-    }
 
     @Override
     public String toString() {

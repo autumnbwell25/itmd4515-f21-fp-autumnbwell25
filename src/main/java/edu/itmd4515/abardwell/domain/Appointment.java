@@ -1,5 +1,5 @@
 package edu.itmd4515.abardwell.domain;
-//folowed in class demonostration
+//followed in class demonstration
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,13 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Reservation")
-public class Appointment {
-
-    // not a natural ID since a natural ID does not exist for this entity
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appt_id")
-    private Long id;
+@AttributeOverride(name = "id", column = @Column(name = "appt_id"))
+public class Appointment extends AbstractEntity{
 
     @Column(name ="appt_date")
     private LocalDate date;
@@ -93,40 +88,12 @@ public class Appointment {
         this.dress = dress;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public LocalDate getDate() {
         return date;
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        // we must check for the generatedID fields for nulls to satisfy JPA equals
-        if(( this.id == null) || ((Appointment) o).id == null){
-            return false;
-        }
-
-        Appointment appt = (Appointment) o;
-        return id.equals(appt.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id);
     }
 
     @Override
