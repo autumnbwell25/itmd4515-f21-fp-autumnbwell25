@@ -110,10 +110,10 @@ public class DressTest {
     }
 
     @Test
-    public void testManytoManyBiDirectionalOwnerDressRelationship() {
+    public void testManytoManyBiDirectionalOwnerDressRelationship(){
         LOG.info("testManyToManyBiDirectionalOwnerPetRelationship ============================================>");
 
-        Owner o = new Owner("Professor Scott");
+        Owner o = new Owner("Prof Scott");
         Dress p = new Dress("Leo Test", LocalDate.of(2022, 6, 15), DressType.Mermaid);
 
         //example 1 - no developer effort to manage relationship, so does not exist. We should manage the relationship at the application layer without setting relationships,
@@ -127,11 +127,21 @@ public class DressTest {
         //because we did not manage both sides. We checked how it looked from owning side/non owning side with a check
         //o.getDresses().add(p);
 
-        // example 3 and 4 cont
+        // example 4 -we will set both sides of the relationship as per JPA and Prof Scott's requirements
+        //o.getPets().add(p);
+        //p.getOwners().add(o);
+        o.addDress(p);
+
+        tx.begin();
+        em.persist(o);
+        em.persist(p);
+        tx.commit();
+
+        // example 3 and 4 cont - we reviewed impact of not managing both sides
         //owning side
         System.out.println("From the owning side: " + o.getDresses().toString());
         //non owning side next
-        System.out.println("From the non-oqning side: " + p.getOwners().toString());
+        System.out.println("From the non-owning side: " + p.getOwners().toString());
 
         assertTrue(o.getDresses().size() == 1);
         assertTrue(p.getOwners().size() == 1);
@@ -143,7 +153,6 @@ public class DressTest {
         em.remove(o);
         tx.commit();
     }
-
 
     // this fires once after each test method
     @AfterEach

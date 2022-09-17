@@ -11,11 +11,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Reservation")
 @AttributeOverride(name = "id", column = @Column(name = "appt_id"))
+@NamedQuery(name = "Appointment.findAll", query = "select a from Appointment a")
 public class Appointment extends AbstractEntity{
 
     @Column(name ="appt_date")
     private LocalDate date;
-    @Column(name = "time")
+    @Column(name = "appt_time")
     private LocalTime time;
     /*
     Relationships:
@@ -47,6 +48,23 @@ public class Appointment extends AbstractEntity{
     public Appointment(LocalDate date, LocalTime time) {
         this.date = date;
         this.time = time;
+    }
+    public void scheduleAppointment(Dress p, Stylist v, Owner o){
+        this.dress = p;
+        this.stylist = v;
+        this.owner = o;
+
+        if(! o.getAppts().contains(this)) o.getAppts().add(this);
+        if(! v.getAppts().contains(this)) v.getAppts().add(this);
+    }
+
+    public void cancelAppointment(){
+        if( this.owner.getAppts().contains(this)) this.owner.getAppts().remove(this);
+        if( this.stylist.getAppts().contains(this)) this.stylist.getAppts().remove(this);
+
+        this.dress = null;
+        this.stylist = null;
+        this.owner = null;
     }
 
     // different because bidirectional
@@ -94,6 +112,14 @@ public class Appointment extends AbstractEntity{
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     @Override

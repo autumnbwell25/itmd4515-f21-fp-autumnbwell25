@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Stylist")
+@Table(name = "stylist")
 @AttributeOverride(name = "id", column = @Column(name = "stylist_id"))
+@NamedQuery(name = "Stylist.findAll", query = "select v from Stylist v")
 public class Stylist extends AbstractEntity{
 
 
@@ -22,7 +23,6 @@ public class Stylist extends AbstractEntity{
 
     public Stylist() {
     }
-
 
     public Stylist(String name) {
 

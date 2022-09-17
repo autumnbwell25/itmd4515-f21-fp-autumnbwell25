@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "client")
 @AttributeOverride(name = "id", column = @Column(name = "client_id"))
+@NamedQuery(name = "Owner.findAll", query = "select o from Owner o")
 
 public class Owner extends AbstractEntity{
 
