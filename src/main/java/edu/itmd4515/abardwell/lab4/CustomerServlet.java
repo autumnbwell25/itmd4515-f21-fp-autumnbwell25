@@ -1,10 +1,13 @@
 package edu.itmd4515.abardwell.lab4;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.io.IOException;
@@ -26,7 +29,14 @@ public class CustomerServlet extends HttpServlet {
     Validator validator;
 
     @Resource(lookup = "java:app/jdbc/itmd4515DS")
-    DataSource ds;
+     DataSource ds;
+
+    @Resource
+    UserTransaction tx;
+    @PersistenceContext (name = "itmd4515DS")
+    EntityManager em;
+
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,6 +56,11 @@ public class CustomerServlet extends HttpServlet {
         }
 
         return null;
+    }
+    private void createAJPACustomer(Customer customer) throws Exception{
+        tx.begin();
+        em.persist(customer);
+        tx.commit();
     }
 
     private void createACustomer(Customer customer) throws SQLException {
@@ -129,7 +144,8 @@ public class CustomerServlet extends HttpServlet {
                 // since there aren't validation failures, set validated pojo as a request attribute
                 request.setAttribute("customer", customer);
 
-                createACustomer(customer);
+                //createACustomer(customer);
+                createAJPACustomer(customer);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/conf.jsp");
                 dispatcher.forward(request, response);

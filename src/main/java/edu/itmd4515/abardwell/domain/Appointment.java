@@ -54,6 +54,21 @@ public class Appointment {
         this.time = time;
     }
 
+    // different because bidirectional
+    public void addOwner(Owner o) {
+        this.owner = o;
+
+        if (!o.getAppts().contains(this)) {
+            o.getAppts().add(this);
+        }
+    }
+    public void removeOwner(Owner o){
+        this.owner = null;
+
+        if(o.getAppts().contains(this)) {
+            o.getAppts().remove(this);
+        }
+    }
     public Stylist getStylist() {
         return stylist;
     }

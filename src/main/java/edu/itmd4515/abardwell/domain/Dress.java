@@ -14,12 +14,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "dress")
 @NamedQuery(name = "Dress.findByName", query = "select p from Dress p where p.name = :NAME") //named parameter
-public class Dress {
+public class Dress extends AbstractEntity{
 
-    // not a natural ID since a natural ID does not exist for this entity
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @NotBlank
     @Column(name = "Dress_name", nullable = false, unique = true)
@@ -57,13 +54,7 @@ public class Dress {
         this.owners = owners;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -95,25 +86,6 @@ public class Dress {
 
     public void setType(DressType type) {
         this.type = type;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        // we must check for the generatedID fields for nulls to satisfy JPA equals
-        if(( this.id == null) || ((Dress) o).id == null){
-            return false;
-        }
-
-        Dress dress = (Dress) o;
-        return id.equals(dress.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 

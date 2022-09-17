@@ -1,11 +1,16 @@
 package edu.itmd4515.abardwell.lab4;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 
 import java.time.LocalDate;
 
+@Entity
 public class Customer {
 
+
+    @Id
     @NotNull
     @Positive
     private Integer id;

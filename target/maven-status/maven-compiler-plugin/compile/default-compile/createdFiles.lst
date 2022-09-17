@@ -1,8 +1,0 @@
-edu\itmd4515\abardwell\domain\Owner.class
-edu\itmd4515\abardwell\config\DBConfig.class
-edu\itmd4515\abardwell\lab4\CustomerServlet.class
-edu\itmd4515\abardwell\lab4\Customer.class
-edu\itmd4515\abardwell\domain\Dress.class
-edu\itmd4515\abardwell\domain\Stylist.class
-edu\itmd4515\abardwell\domain\DressType.class
-edu\itmd4515\abardwell\domain\Appointment.class
