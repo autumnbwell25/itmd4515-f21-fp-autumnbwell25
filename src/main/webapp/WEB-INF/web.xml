@@ -15,6 +15,9 @@
     <welcome-file-list>
     <welcome-file>login.xhtml</welcome-file>
 </welcome-file-list>
+    <error-page>
+        <location>/WEB-INF/errors/error.xhtml</location>
+    </error-page>
     <security-constraint>
         <web-resource-collection>
     <web-resource-name>Admin Content</web-resource-name>

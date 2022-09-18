@@ -3,6 +3,7 @@ package edu.itmd4515.abardwell.domain.security;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import java.util.List;
 public class User {
 //this is our persistence id
     @Id
+    @NotBlank(message = "You must input a username")
     private String userName;
+    @NotBlank(message = "You must input a password")
     private String password;
     private Boolean enabled;
 

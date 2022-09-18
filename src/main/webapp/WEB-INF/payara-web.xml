@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE payara-web-app SYSTEM "https://raw.githubusercontent.com/payara/Payara-Server-Documentation/master/schemas/payara-web-app_4.dtd" PUBLIC "-//Payara.fish//DTD Payara Server 4 Servlet 3.0//EN"/>
+<!DOCTYPE payara-web-app SYSTEM "https://raw.githubusercontent.com/payara/Payara-Server-Documentation/master/schemas/payara-web-app_4.dtd" PUBLIC "-//Payara.fish//DTD Payara Server 4 Servlet 3.0//EN"
 
 
         <payara-web-app>
