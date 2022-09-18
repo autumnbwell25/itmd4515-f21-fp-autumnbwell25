@@ -1,6 +1,8 @@
 package edu.itmd4515.abardwell.domain;
 //followed in class demonstration
 
+import edu.itmd4515.abardwell.domain.security.User;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,10 @@ public class Owner extends AbstractEntity{
             inverseJoinColumns = @JoinColumn(name = "dress_id")
     )
     private List<Dress> dresses = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
 
     public void addDress(Dress p){
         if (!this.dresses.contains(p)) this.dresses.add(p);
@@ -72,6 +78,14 @@ public class Owner extends AbstractEntity{
 
     public void setDresses(List<Dress> dresses) {
         this.dresses = dresses;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

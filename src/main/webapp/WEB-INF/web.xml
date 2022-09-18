@@ -12,4 +12,34 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+    <welcome-file>login.xhtml</welcome-file>
+</welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+    <web-resource-name>Admin Content</web-resource-name>
+    <url-pattern>/admin/*</url-pattern>
+</web-resource-collection>
+        <auth-constraint>
+    <role-name>ADMIN_ROLE</role-name>
+</auth-constraint>
+</security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+    <web-resource-name>Stylist Content</web-resource-name>
+    <url-pattern>/stylist/*</url-pattern>
+</web-resource-collection>
+        <auth-constraint>
+    <role-name>STYLIST_ROLE</role-name>
+</auth-constraint>
+</security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+    <web-resource-name>Owner Content</web-resource-name>
+    <url-pattern>/owner/*</url-pattern>
+</web-resource-collection>
+        <auth-constraint>
+    <role-name>OWNER_ROLE</role-name>
+</auth-constraint>
+</security-constraint>
 </web-app>

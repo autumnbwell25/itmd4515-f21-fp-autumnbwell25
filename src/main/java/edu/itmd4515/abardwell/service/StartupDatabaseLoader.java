@@ -2,6 +2,8 @@ package edu.itmd4515.abardwell.service;
 
 import com.mysql.cj.log.Log;
 import edu.itmd4515.abardwell.domain.*;
+import edu.itmd4515.abardwell.domain.security.Group;
+import edu.itmd4515.abardwell.domain.security.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -29,6 +31,13 @@ public class StartupDatabaseLoader {
     @EJB
     private AppointmentService apptSvc;
 
+
+    @EJB
+    private UserService userSvc;
+
+    @EJB
+    private GroupService groupSvc;
+
     public StartupDatabaseLoader() {
 
     }
@@ -36,11 +45,40 @@ public class StartupDatabaseLoader {
     @PostConstruct
     private void postConstruct() {
 
+        Group adminGroup = new Group("ADMIN_GROUP", "External AD security group (simulated) of application administrators");
+        Group stylistGroup = new Group("STYLIST_GROUP", "External AD security group (simulated) containing all stylist users");
+        Group ownerGroup = new Group("OWNER_GROUP", "External AD security group (simulated) containing all client/relationship ownerusers");
+        groupSvc.create(adminGroup);
+        groupSvc.create(stylistGroup);
+        groupSvc.create(ownerGroup);
+
+        User admin = new User("admin", "admin", true);
+        admin.addGroup(adminGroup);
+        userSvc.create(admin);
+
+        User stylist1 = new User("stylist1", "stylist1", true);
+        stylist1.addGroup(stylistGroup);
+        stylist1.addGroup(adminGroup);
+        User stylist2 = new User("stylist2", "stylist2", true);
+        stylist2.addGroup(stylistGroup);
+        stylist2.addGroup(ownerGroup);
+        User owner1 = new User("owner1", "owner1", true);
+        owner1.addGroup(ownerGroup);
+        User owner2 = new User("owner2", "owner2", true);
+        owner2.addGroup(ownerGroup);
+
+        userSvc.create(stylist1);
+        userSvc.create(stylist2);
+        userSvc.create(owner1);
+        userSvc.create(owner2);
+
         // first we create entities that are not owning the relationships aka inverses
         // Stylist and Dress do not own relationships
 
         Stylist v1 = new Stylist("Stylist One");
+        v1.setUser(stylist1);
         Stylist v2 = new Stylist("Stylist Two");
+        v2.setUser(stylist2);
         stylistSvc.create(v1);
         stylistSvc.create(v2);
 
@@ -57,7 +95,9 @@ public class StartupDatabaseLoader {
         //side of the relationship is responsible for database update thus order is important
 
         Owner o1 = new Owner("Owner One");
+        o1.setUser(owner1);
         Owner o2 = new Owner("Owner Two");
+        o2.setUser(owner2);
 
         o1.addDress(p1);
         o1.addDress(p4);

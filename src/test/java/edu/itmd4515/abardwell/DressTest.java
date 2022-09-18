@@ -27,8 +27,7 @@ public class DressTest {
 
     //fires once at the class level before each test case
     @BeforeAll
-    public static void beforeAll() {
-
+    public static void beforeAll(){
         emf = Persistence.createEntityManagerFactory("itmd4515testPU");
     }
 

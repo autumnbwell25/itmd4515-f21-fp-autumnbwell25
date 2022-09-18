@@ -1,5 +1,7 @@
 package edu.itmd4515.abardwell.domain;
 
+import edu.itmd4515.abardwell.domain.security.User;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,10 @@ public class Stylist extends AbstractEntity{
     //mapped by the name of the field of the owning side of the relationship
     @OneToMany(mappedBy = "stylist")
     private List<Appointment> appts = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
 
     public Stylist() {
     }
@@ -45,6 +51,14 @@ public class Stylist extends AbstractEntity{
         this.name = name;
     }
 
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
